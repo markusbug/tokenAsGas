@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+# Token as Gas
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<img src="./screenshot.png" style="zoom:80%;" />
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `npm start`
+## Implementation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This is a simple diagram showcasing a simple overview of how it works:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<img src="./diagram.png" alt="Diagram"  />
 
-### `npm test`
+The Implementation consists a server and a user, the server in this case being a firebase function node.js instance, but you could copy-paste the code into any nodejs runtime. At the moment, for simplicity reasons, I just implemented getting gas for a simple transaction (no data, so 21000 units of gas), but I made it easy to add custom gas numbers if you want.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To run it yourself you need to create a `.env` file in the `./backend_firebase` directory, this is a sample:
 
-### `npm run build`
+```bash
+INFURA_URL="https://rinkeby.infura.io/v3/YOUR_KEY"
+YOUR_ADDRESS="0x3a4e6eD8B0F02BFBfaA3C6506Af2DB939eA5798c"
+TOKEN_ADDRESS="0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48" # USDC token
+PRIVATE_KEY="0x0"
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+And in the file `App.js` you need to change variables `YOUR_ADDRESS` and `TOKEN_ADDRESS`, and to let the user connect with a wallet, add an Infura JSON-RPC Url in the `getProvider.js` file at the line 13.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Caution: This is still a prototype and it needs more safe-guards for production, so use it with caution!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Opportunity for owner
 
-### `npm run eject`
+The owner, in this case the person running the server and exposing this service to users, can benefit from arbitrage opportunities, for example buying eth for cheaper and then "selling" it as gas with an added premium. 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Current problems
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Metamask, which is currently the biggest wallet i think, is not supported, because they disabled the ability to sign a transaction without sending it. The one wallet that I found was working is the Coinbase Wallet, but it only lets you sign a transaction if you have enough gas to pay for it (wtf?). Perhaps there are other wallets that have better support, you can create an Issue if you found one.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Buy me coffee
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+If you like my work, please consider buying me a coffee at `mhaas.eth` or `0x3a4e6eD8B0F02BFBfaA3C6506Af2DB939eA5798c`. Thanks!
